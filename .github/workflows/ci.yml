@@ -18,6 +18,8 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install build deps
       run: pip install -U pip setuptools wheel tox poetry
+    - name: Fetch lwan sources
+      run: git submodule update
     - name: Run tox
       run: tox -e py
 
