@@ -1,0 +1,23 @@
+dist: bionic
+
+language: python
+cache:
+  pip: true
+  directories:
+    - ".tox"
+    - ".cache"
+
+# Install Python dependencies
+install:
+  - pip install -U pip setuptools wheel tox tox-travis poetry
+
+matrix:
+  include:
+    - python: "3.7"
+    - python: "3.8"
+    - python: "3.9"
+
+# Run tests
+script:
+  - tox
+
