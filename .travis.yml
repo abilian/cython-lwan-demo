@@ -19,5 +19,6 @@ matrix:
 
 # Run tests
 script:
+  - git submodule update
   - tox
 
