@@ -1,9 +1,28 @@
-.PHONY: all cython_module run
+.PHONY:
+all: build-module
 
-all: cython_module
+.PHONY:
+build-lwan:
+	mkdir -p vendor/lwan/build
+	cd vendor/lwan/build && cmake .. -DCMAKE_BUILD_TYPE=Release
+	cd vendor/lwan/build && make
 
-cython_module:
+.PHONY:
+build-module:
 	python3 setup.py build_ext --inplace
 
-run: cython_module
-	export LD_LIBRARY_PATH=/usr/local/lib; python3 -c "import lwan; lwan.run()"
+.PHONY:
+run: build-module
+	./run.py
+
+.PHONY:
+clean:
+	rm -rf vendor/lwan/build
+	rm -f src/*.c
+	rm -f *.so
+	python setup.py clean
+
+
+.PHONY:
+push:
+	rsync -e ssh -avz ./ puer:cython-lwan/
