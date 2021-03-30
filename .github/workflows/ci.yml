@@ -19,7 +19,7 @@ jobs:
     - name: Install build deps
       run: pip install -U pip setuptools wheel tox poetry
     - name: Fetch lwan sources
-      run: git submodule update
+      run: git submodule update --init
     - name: Run tox
       run: tox -e py
 
